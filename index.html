@@ -33,42 +33,7 @@
     <section id="Illustrations">
 
         <h1>Illustrations</h1>
-        <div id="illustrationGallery">
-
-            <a href="artworks/artistalley/artistalley (1).jpg" class="glightbox">
-                <img src="artworks/artistalley/artistalley (1).jpg" alt="artistalley (1)" />
-            </a>
-            <a href="artworks/artistalley/artistalley (2).jpg" class="glightbox">
-                <img src="artworks/artistalley/artistalley (2).jpg" alt="artistalley (2)" />
-            </a>
-            <a href="artworks/artistalley/artistalley (3).jpg" class="glightbox">
-                <img src="artworks/artistalley/artistalley (3).jpg" alt="artistalley (3)" />
-            </a>
-            <a href="artworks/artistalley/artistalley (4).jpg" class="glightbox">
-                <img src="artworks/artistalley/artistalley (4).jpg" alt="artistalley (4)" />
-            </a>
-            <a href="artworks/artistalley/artistalley (5).jpg" class="glightbox">
-                <img src="artworks/artistalley/artistalley (5).jpg" alt="artistalley (5)" />
-            </a>
-            <a href="artworks/artistalley/artistalley (6).jpg" class="glightbox">
-                <img src="artworks/artistalley/artistalley (6).jpg" alt="artistalley (6)" />
-            </a>
-            <a href="artworks/artistalley/artistalley (7).jpg" class="glightbox">
-                <img src="artworks/artistalley/artistalley (7).jpg" alt="artistalley (7)" />
-            </a>
-            <a href="artworks/artistalley/artistalley (8).jpg" class="glightbox">
-                <img src="artworks/artistalley/artistalley (8).jpg" alt="artistalley (8)" />
-            </a>
-            <a href="artworks/artistalley/artistalley (9).jpg" class="glightbox">
-                <img src="artworks/artistalley/artistalley (9).jpg" alt="artistalley (9)" />
-            </a>
-            <a href="artworks/artistalley/artistalley (10).jpg" class="glightbox">
-                <img src="artworks/artistalley/artistalley (10).jpg" alt="artistalley (10)" />
-            </a>
-            <a href="artworks/artistalley/artistalley (11).jpg" class="glightbox">
-                <img src="artworks/artistalley/artistalley (11).jpg" alt="artistalley (11)" />
-            </a>
-        </div>
+        <div id="illustrationGallery"></div>
     </section>
 
     <section id="Table">
@@ -86,16 +51,32 @@
     </footer>
 
     <script>
-        $(document).ready(function () {
-            $('#illustrationGallery').justifiedGallery({
-                rowHeight: 550,
-                margins: 10,
-                lastRow: 'nojustify',
-                captions: false
-            });
-        });
+        fetch('artworks/artistalley/images.json')
+            .then(response => response.json())
+            .then(images => {
+                const gallery = document.getElementById('illustrationGallery');
+                const folder = 'artworks/artistalley/';
 
-        const lightbox = GLightbox({ selector: '.glightbox' });
+                images.forEach(filename => {
+                    const path = folder + filename;
+                    const title = filename.replace(/\.[^/.]+$/, '');
+
+                    gallery.insertAdjacentHTML('beforeend', `
+                        <a href="${path}" class="glightbox">
+                            <img src="${path}" alt="${title}" />
+                        </a>`);
+                });
+
+                $('#illustrationGallery').justifiedGallery({
+                    rowHeight: 550,
+                    margins: 10,
+                    lastRow: 'nojustify',
+                    captions: false
+                });
+
+                GLightbox({ selector: '.glightbox' });
+            })
+            .catch(error => console.error('Could not load gallery images:', error));
 
         const sections = document.querySelectorAll('section:not(:first-of-type)');
         const navLinks = document.querySelectorAll('.main-nav a');
