@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lawrence's Art Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- jQuery (required) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- JustifiedGallery plugin -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+
+    <!-- Lightbox plugin -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+</head>
+<body id="Top">
+    <header>
+        <div class="site-title">AspiringFurniture</div>
+        <div class="sub-title">One day I'll become a drawer</div>
+    </header>
+    <div class="main-nav">
+        <a href="#Top">Introduction</a>
+        <a href="#Illustrations">Illustrations</a>
+        <a href="#Table">Table</a>
+    </div>
+    <section>
+        <h1>Introduction</h1>
+        <p>Hi, my name is Lawrence and I make dumb name choices. I also make illustrations. I plan on selling prints of my illustrations in 2 sizes: 11x17 and 5.5x8.5.</p>
+    </section>
+    <section id="Illustrations">
+
+        <h1>Illustrations</h1>
+        <div id="illustrationGallery">
+
+            <a href="artworks/artistalley/artistalley (1).jpg" class="glightbox">
+                <img src="artworks/artistalley/artistalley (1).jpg" alt="artistalley (1)" />
+            </a>
+            <a href="artworks/artistalley/artistalley (2).jpg" class="glightbox">
+                <img src="artworks/artistalley/artistalley (2).jpg" alt="artistalley (2)" />
+            </a>
+            <a href="artworks/artistalley/artistalley (3).jpg" class="glightbox">
+                <img src="artworks/artistalley/artistalley (3).jpg" alt="artistalley (3)" />
+            </a>
+            <a href="artworks/artistalley/artistalley (4).jpg" class="glightbox">
+                <img src="artworks/artistalley/artistalley (4).jpg" alt="artistalley (4)" />
+            </a>
+            <a href="artworks/artistalley/artistalley (5).jpg" class="glightbox">
+                <img src="artworks/artistalley/artistalley (5).jpg" alt="artistalley (5)" />
+            </a>
+            <a href="artworks/artistalley/artistalley (6).jpg" class="glightbox">
+                <img src="artworks/artistalley/artistalley (6).jpg" alt="artistalley (6)" />
+            </a>
+            <a href="artworks/artistalley/artistalley (7).jpg" class="glightbox">
+                <img src="artworks/artistalley/artistalley (7).jpg" alt="artistalley (7)" />
+            </a>
+            <a href="artworks/artistalley/artistalley (8).jpg" class="glightbox">
+                <img src="artworks/artistalley/artistalley (8).jpg" alt="artistalley (8)" />
+            </a>
+            <a href="artworks/artistalley/artistalley (9).jpg" class="glightbox">
+                <img src="artworks/artistalley/artistalley (9).jpg" alt="artistalley (9)" />
+            </a>
+            <a href="artworks/artistalley/artistalley (10).jpg" class="glightbox">
+                <img src="artworks/artistalley/artistalley (10).jpg" alt="artistalley (10)" />
+            </a>
+            <a href="artworks/artistalley/artistalley (11).jpg" class="glightbox">
+                <img src="artworks/artistalley/artistalley (11).jpg" alt="artistalley (11)" />
+            </a>
+        </div>
+    </section>
+
+    <section id="Table">
+        <h1>Artist Alley Table</h1>
+        <!--<p>Below are mockups of what my table would look like.</p>-->
+
+        <div class="table-images">
+            <img src="artworks/misc/table1.jpg">
+            <img src="artworks/misc/table2.jpg">
+        </div>
+
+    </section>
+
+    <footer>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            $('#illustrationGallery').justifiedGallery({
+                rowHeight: 550,
+                margins: 10,
+                lastRow: 'nojustify',
+                captions: false
+            });
+        });
+
+        const lightbox = GLightbox({ selector: '.glightbox' });
+
+        const sections = document.querySelectorAll('section:not(:first-of-type)');
+        const navLinks = document.querySelectorAll('.main-nav a');
+        const offset = 4 * parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+        function onScroll() {
+            let current = 'Top';
+
+            sections.forEach(section => {
+                if (section.getBoundingClientRect().top <= offset) {
+                    current = section.id;
+                }
+            });
+
+            navLinks.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href') === '#' + current) {
+                    a.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', onScroll);
+        onScroll();
+    </script>
+</body>
+</html>
+
+
